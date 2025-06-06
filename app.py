@@ -1,9 +1,10 @@
 import streamlit as st
 from utils.huffman import huffmanCoding_steps  # Import fungsi untuk proses Huffman dari file huffman.py
 from utils.visualizer import visualize_partial_tree, get_decode_trace, visualize_huffman_step  # Import fungsi visualisasi tree dari file visualizer.py
-from utils.huffman_code import compress, decompress
+from utils.huffman_code import compress, decompress, build_codes, build_tree
 from utils.image_handler import image_to_bytes, bytes_to_image
 from utils.file_utils import read_text_file
+
 import os
 import tempfile 
 from PIL import Image
@@ -34,9 +35,20 @@ with tab1:
                 compression_ratio = compressed_size / original_size
                 saving = (1 - compression_ratio) * 100
 
+                # Calculate compressed bitstream size (excluding tree)
+                root = build_tree(data)
+                codes = build_codes(root)
+                bitstream = ''.join(codes[byte] for byte in data)
+
+                # Pad bits to make full bytes
+                padding = (8 - len(bitstream) % 8) % 8
+                padded_bitstream = bitstream + '0' * padding
+                bitstream_bytes = len(padded_bitstream) // 8
+            
                 st.image(image, caption="Original Image", use_column_width=True)
                 st.write(f"Ukuran Asli: {original_size} bytes")
                 st.write(f"Ukuran Setelah Kompresi: {compressed_size} bytes")
+                st.write(f"Ukuran Bitstream Saja (tanpa metadata pohon): {bitstream_bytes} bytes")
                 st.write(f"Rasio Kompresi: {compression_ratio:.2f}")
                 st.write(f"Penghematan: {saving:.2f}%")
 
