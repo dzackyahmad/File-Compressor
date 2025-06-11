@@ -15,7 +15,6 @@ st.title("📦 File-Compressor using Huffman Coding Algorithm")
 # Tab Layout: Hanya ada 2 tab sekarang
 tab1, tab2 = st.tabs(["🗜️ File Compressor", "📊 Huffman Visualizer"])
 
-
 # === TAB 1: FILE COMPRESSOR ===
 with tab1:
     st.markdown("<h2 style='text-align:center;'>🗜️ File Compressor </h2>", unsafe_allow_html=True)
@@ -75,7 +74,6 @@ with tab1:
             else:
                 st.warning("Tipe file tidak didukung untuk kompresi.")
 
-
         elif mode == "Decompress":
             if file_type == "huff":
                 try:
@@ -83,7 +81,6 @@ with tab1:
                     decoded_data = decompress(binary_data)
 
                     # Determine if it's an image or text/csv
-                    # Check for common image magic numbers (PNG: \x89PNG, JPEG: \xff\xd8)
                     if decoded_data[:4] == b'\x89PNG' or decoded_data[:2] == b'\xff\xd8':
                         image = bytes_to_image(decoded_data)
                         st.image(image, caption="Hasil Dekompresi", use_column_width=True)
@@ -129,18 +126,20 @@ with tab2:
         st.session_state.decomp_index = 0
         st.session_state.last_visualizer_mode = visualizer_mode
 
-
     if visualizer_mode == "Huffman Tree Compression Steps":
         st.markdown("<h3 style='text-align:center;'>🌲 Visualisasi Kompresi Huffman </h3>", unsafe_allow_html=True)
         
         with st.container():  # Container untuk input teks
             st.markdown("### ✍️ Masukkan Teks untuk Visualisasi Kompresi")  # Judul input
-            user_input_compress_visual = st.text_area("", value="aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff", key="compress_visual_input")  # Text area untuk input user
+            user_input_compress_visual = st.text_area("", value="", key="compress_visual_input")  # Text area untuk input user
+
 
         if st.button("🔐 Kompresi Sekarang (Visual)", key="trigger_compress_visual"):
             if not user_input_compress_visual.strip():
                 st.warning("Silakan masukkan teks terlebih dahulu.")
             else:
+                user_input_compress_visual = user_input_compress_visual.lower()
+
                 steps, code_dict, freq_table, descriptions = huffmanCoding_steps(user_input_compress_visual)
 
                 st.session_state["huffman_steps"] = steps
@@ -216,20 +215,19 @@ with tab2:
                 compressed_percent = (1 - total_huffman_bits / (len(user_input)*8)) * 100
                 st.success(f"Penghematan ukuran data: **{compressed_percent:.2f}%**")
     
-    # === Huffman Tree Decompression Steps (UI Disamakan dengan Huffman Tree Compression Steps) ===
+    # === Huffman Tree Decompression Steps ===
     elif visualizer_mode == "Huffman Tree Decompression Steps":
         st.markdown("<h3 style='text-align:center;'>🔍 Visualisasi Dekompresi Huffman</h3>", unsafe_allow_html=True)
 
         with st.container():
             st.markdown("### ✍️ Masukkan Teks untuk Visualisasi Dekompresi")  # Judul input
-            user_input_decompress_visual = st.text_area("", value="aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff", key="decode_input_visual_common")
+            user_input_decompress_visual = st.text_area("", value="", key="decode_input_visual_common")
 
         if st.button("🔐 Dekompresi Sekarang (Visual)", key="trigger_decompress_visual_common"):
             if not user_input_decompress_visual.strip():
                 st.warning("Silakan masukkan teks terlebih dahulu.")
             else:
                 data = user_input_decompress_visual.encode()
-                # Proses kompresi untuk mendapatkan pohon dan kode yang akan digunakan untuk dekompresi
                 steps_for_tree, code_dict_for_decomp, freq_table_for_decomp, _ = huffmanCoding_steps(user_input_decompress_visual)
                 final_root = steps_for_tree[-1] # Ambil root terakhir dari proses kompresi untuk dekompresi
                 bitstream = ''.join(code_dict_for_decomp[byte] for byte in data)
@@ -279,7 +277,6 @@ with tab2:
 
             st.markdown(f"<h3 style='text-align:center;'>🎬 Langkah Dekompresi {st.session_state.decomp_index + 1} dari {len(trace)}</h3>", unsafe_allow_html=True)
 
-            # Bagian info dekompresi spesifik
             current_bitpath, current_char = trace[st.session_state.decomp_index]
             st.info(f"**Bit dibaca:** `{current_bitpath}` → **Karakter:** `{current_char}`")
 
