@@ -27,18 +27,6 @@ Proyek ini dibuat sebagai bagian dari tugas akhir praktikum mata kuliah **Analis
 
 ---
 
-## 📁 Struktur Proyek
-
----
-
-# File-Compressor
-
-A simple application for compressing and decompressing files using the Huffman coding algorithm.
-
-# File-Compressor
-
-A simple application for compressing and decompressing files using the Huffman coding algorithm.
-
 ## Cara Menjalankan Aplikasi Secara Lokal
 
 Ikuti langkah-langkah berikut untuk menjalankan aplikasi **File-Compressor** secara lokal di mesin Anda:
