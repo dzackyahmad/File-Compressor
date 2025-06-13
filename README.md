@@ -31,24 +31,57 @@ Proyek ini dibuat sebagai bagian dari tugas akhir praktikum mata kuliah **Analis
 
 ---
 
-## 💡 Cara Menjalankan Aplikasi
+# File-Compressor
 
-Ikuti langkah-langkah berikut untuk menjalankan aplikasi File-Compressor secara lokal:
+A simple application for compressing and decompressing files using the Huffman coding algorithm.
 
-### 1. Clone repositori dari GitHub
+# File-Compressor
 
-```bash
-git clone https://github.com/username/File-Compressor.git
-cd File-Compressor
+A simple application for compressing and decompressing files using the Huffman coding algorithm.
 
-```
+## Cara Menjalankan Aplikasi Secara Lokal
 
-### 2. run venv dan activate
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi **File-Compressor** secara lokal di mesin Anda:
 
-### python -m venv venv
+### 1. **Clone Repositori dari GitHub**
 
-### venv\Scripts\activate
+   Pertama, Anda perlu meng-clone repositori ke komputer lokal Anda. Buka terminal atau command prompt dan jalankan perintah berikut:
 
-### 3. pip install -r requirements.txt
+   git clone https://github.com/dzackyahmad/File-Compressor.git
+   cd File-Compressor
+   
+Catatan: Pastikan Anda mengganti https://github.com/dzackyahmad/File-Compressor.git dengan URL repositori GitHub Anda.
 
-### 4. streamlit run app.py
+2. Buat dan Aktivasi Virtual Environment
+Setelah repositori berhasil di-clone, buatlah virtual environment untuk mengisolasi dependensi aplikasi. Jalankan perintah berikut di terminal:
+
+Untuk Windows:
+python -m venv venv
+venv\Scripts\activate
+Untuk macOS/Linux:
+python3 -m venv venv
+source venv/bin/activate
+Setelah menjalankan perintah ini, Anda akan berada di dalam virtual environment yang terisolasi, yang memungkinkan Anda untuk menginstal dependensi tanpa mempengaruhi sistem Python global Anda.
+
+3. Install Dependensi
+Setelah virtual environment diaktifkan, instal semua dependensi yang diperlukan dengan menjalankan:
+
+pip install -r requirements.txt
+Perintah ini akan menginstal semua library yang diperlukan yang tercantum di dalam file requirements.txt.
+
+4. Jalankan Aplikasi
+Setelah instalasi selesai, Anda dapat menjalankan aplikasi menggunakan Streamlit dengan perintah berikut:
+
+streamlit run app.py
+Aplikasi akan berjalan di localhost, dan Anda akan melihat URL di terminal yang biasanya terlihat seperti ini:
+
+Local URL:  http://localhost:8501
+Network URL:  http://<your-ip>:8501
+Buka URL tersebut di browser Anda untuk mengakses aplikasi.
+
+Lisensi
+
+Distribusi ini dilisensikan di bawah MIT License. Lihat file LICENSE untuk informasi lebih lanjut.
+
+
+You can copy this and paste it into a `README.md` file in your project folder. Let me know if you need
